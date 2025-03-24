@@ -8,12 +8,20 @@
 #
 
 import random
+import sys
 
 KAPREKAR_CONSTANT = 6174
 
 
 def get_random_four_digit():
     return random.randint(1000, 9999)
+
+
+def validate_number(number):
+    if not (1000 <= number <= 9999):
+        print("Error: Please provide a 4-digit number (between 1000 and 9999)")
+        sys.exit(1)
+    return number
 
 
 def kaprekar_step(number):
@@ -45,6 +53,11 @@ def kaprekar_loop(number):
 
 
 if __name__ == "__main__":
-    number = get_random_four_digit()
-    print(f"Starting number: {number}")
+    if len(sys.argv) > 1:
+        number = validate_number(int(sys.argv[1]))
+        print(f"Using provided number: {number}")
+    else:
+        number = get_random_four_digit()
+        print(f"Using random number: {number}")
+
     kaprekar_loop(number)
